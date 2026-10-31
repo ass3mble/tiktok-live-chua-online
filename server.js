@@ -10,6 +10,8 @@ const { createAccess } = require('./lib/access');
 const { DaoTrang } = require('./lib/dao-trang');
 const { boundedInteger, safeSettings } = require('./lib/input-rules');
 const { resolveTikTokUsername } = require('./lib/tiktok-input');
+const { topDevotees } = require('./lib/leaderboard');
+const { startWebSocketHeartbeat } = require('./lib/websocket-health');
 
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '127.0.0.1';
@@ -157,6 +159,8 @@ class ZeroTTSManager {
     });
     this.proc = worker;
     this.buffer = '';
+    // Giữ nguyên ký tự tiếng Việt khi một ký tự UTF-8 bị chia giữa hai khối dữ liệu.
+    worker.stdout.setEncoding('utf8');
 
     let failureHandled = false;
     const workerFailed = (reason, status = 'stopped') => {
@@ -455,9 +459,7 @@ let leaderboardDirty = true;
 let leaderboardCache = [];
 function getLeaderboard(limit = 6) {
   if (leaderboardDirty) {
-    leaderboardCache = Object.values(state.devotees)
-      .sort((a, b) => b.merit - a.merit)
-      .slice(0, 24)
+    leaderboardCache = topDevotees(state.devotees, 24)
       .map((d, index) => ({
       rank: index + 1,
       name: d.name,
@@ -1391,6 +1393,7 @@ const wss = new WebSocketServer({
   maxPayload: 65536,
   verifyClient: ({ req }, done) => done(access.authorized(req), 403, 'Truy cập bị từ chối')
 });
+const webSocketHeartbeat = startWebSocketHeartbeat(wss);
 
 function broadcastNotification(method, params) {
   const payload = JSON.stringify({
@@ -1479,11 +1482,25 @@ async function shutdown(signal) {
   console.log(`[Máy chủ] Đang dừng an toàn (${signal}), lưu công đức...`);
   if (autoSimTimer) clearInterval(autoSimTimer);
   if (daoTrang.chantTimer) clearInterval(daoTrang.chantTimer);
-  try { if (tiktokConn) await tiktokConn.disconnect(); } catch (_) {}
+  // Ngăn bản tin đến muộn cập nhật công đức sau khi đã chụp trạng thái lưu.
+  tiktokRequestGeneration++;
+  tiktokConnectionGeneration++;
+  const connection = tiktokConn;
+  tiktokConn = null;
   for (const socket of wss.clients) socket.terminate();
+  webSocketHeartbeat.stop();
   server.close();
   try { await flushState(); } catch (err) { console.error('[Trạng thái] Không thể lưu trước khi dừng:', err.message); }
   zeroTts.stopWorker();
+  if (connection) {
+    // Mạng TikTok có thể treo; việc ngắt kết nối không được giữ máy chủ vô thời hạn.
+    await Promise.race([
+      Promise.resolve().then(() => connection.disconnect()).catch((err) => {
+        console.warn('[TikTok] Không thể ngắt kết nối lúc dừng:', err.message);
+      }),
+      new Promise(resolve => setTimeout(resolve, 3000))
+    ]);
+  }
   process.exit(0);
 }
 process.once('SIGINT', () => { void shutdown('SIGINT'); });

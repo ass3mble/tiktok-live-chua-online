@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Diệu Liên Đài | Không gian dâng hương trực tiếp</title>
-  <link rel="icon" type="image/svg+xml" href="/assets/dieu-lien-dai-bieu-tuong.svg" />
+  <link rel="icon" type="image/svg+xml" href="/assets/dieu-lien-dai.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Noto+Serif:wght@700;900&display=swap" rel="stylesheet">
@@ -267,6 +267,13 @@
       </div>
       <div class="connection-error" id="connectionError" role="alert" hidden></div>
 
+      <nav class="dock-shortcuts" aria-label="Đi nhanh đến nhóm điều khiển">
+        <a href="#templeAudioControls"><span aria-hidden="true">01</span> Âm thanh</a>
+        <a href="#dockConnect"><span aria-hidden="true">02</span> Kết nối</a>
+        <a href="#dockRituals"><span aria-hidden="true">03</span> Nghi thức</a>
+        <a href="#dockEvents"><span aria-hidden="true">04</span> Nhật ký</a>
+      </nav>
+
       <div class="dock-section" id="templeAudioControls">
         <div class="dock-section-title">01 / Âm thanh và giọng khấn</div>
         <p id="templeAudioDaoNote" class="dock-access-help" hidden>Đang dùng âm thanh riêng của Đạo Tràng. Chỉnh nhạc, chuông và mõ ở bảng điều khiển đầy đủ.</p>
@@ -282,18 +289,18 @@
             <span>🎵 Âm lượng Nhạc nền</span>
             <strong id="valMusicVol">65%</strong>
           </div>
-          <input type="range" id="sliderMusicVol" class="volume-slider" min="0" max="100" value="65" />
+          <input type="range" id="sliderMusicVol" class="volume-slider" min="0" max="100" value="65" aria-label="Âm lượng nhạc nền" />
         </div>
         <div class="volume-control-row">
           <div class="volume-label-line">
             <span>🎙️ Âm lượng Giọng đọc</span>
             <strong id="valTtsVol">95%</strong>
           </div>
-          <input type="range" id="sliderTtsVol" class="volume-slider" min="0" max="100" value="95" />
+          <input type="range" id="sliderTtsVol" class="volume-slider" min="0" max="100" value="95" aria-label="Âm lượng giọng đọc" />
         </div>
       </div>
 
-      <div class="dock-section">
+      <div class="dock-section" id="dockConnect">
         <div class="dock-section-title">02 / Kết nối phòng TikTok</div>
         <label class="dock-access-label" for="inputAccessCode">Mã truy cập máy chủ (nếu có)</label>
         <input type="password" id="inputAccessCode" class="dock-input" placeholder="Nhập mã được cấp" autocomplete="off" spellcheck="false" />
@@ -307,10 +314,12 @@
         </button>
       </div>
 
-      <div class="dock-section">
+      <div class="dock-section" id="dockRituals">
         <div class="dock-section-title">03 / Nghi thức tương tác</div>
-        <input type="text" id="inputDevoteeName" class="dock-input" value="Khách thử" placeholder="Tên người xem / Thí chủ..." />
-        <input type="text" id="inputDevoteeWish" class="dock-input" value="Cầu cho gia đình bình an, tài lộc hanh thông, vạn sự như ý" placeholder="Lời cầu nguyện..." />
+        <label class="dock-access-label" for="inputDevoteeName">Tên người dâng lễ</label>
+        <input type="text" id="inputDevoteeName" class="dock-input" value="Khách thử" placeholder="Tên người xem / Thí chủ..." maxlength="60" />
+        <label class="dock-access-label" for="inputDevoteeWish">Lời nguyện</label>
+        <input type="text" id="inputDevoteeWish" class="dock-input" value="Cầu cho gia đình bình an, tài lộc hanh thông, vạn sự như ý" placeholder="Lời cầu nguyện..." maxlength="240" />
 
         <div class="dock-grid-2">
           <button class="dock-btn gold" id="btnRpcIncense">🔥 Thắp 3 Nén Hương</button>
@@ -325,7 +334,7 @@
         </button>
       </div>
 
-      <div class="dock-section">
+      <div class="dock-section" id="dockEvents">
         <div class="dock-section-title">04 / Nhật ký gần nhất</div>
         <div class="event-feed" id="eventFeed"></div>
       </div>

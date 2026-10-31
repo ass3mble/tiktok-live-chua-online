@@ -2026,3 +2026,67 @@ body:not(.obs-mode)::before {
 @media (prefers-reduced-motion: reduce) {
   .scene-option, .dock-btn, .dock-link { transition: none; }
 }
+
+/* Điều phối dễ theo dõi: lối tắt tác vụ và cỡ chữ đủ rõ khi làm việc lâu. */
+.dock-shortcuts {
+  display: grid;
+  flex: 0 0 auto;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+  padding: 13px 0 2px;
+}
+.dock-shortcuts a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 0;
+  min-height: 43px;
+  padding: 7px 5px;
+  border: 1px solid #d3c9b5;
+  border-radius: 7px;
+  background: #faf8f0;
+  color: #234e43;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background .18s ease, border-color .18s ease;
+}
+.dock-shortcuts a span {
+  color: #8a7049;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.dock-shortcuts a:hover { background: #e5eee4; border-color: #8cac92; }
+.dock-shortcuts a:focus-visible { outline: 3px solid #ba8d35; outline-offset: 2px; }
+.quick-dock { scroll-behavior: smooth; scroll-padding-top: 120px; }
+.dock-section[id] { scroll-margin-top: 120px; }
+.dock-eyebrow, .dock-section-title { font-size: 12px; letter-spacing: .9px; }
+.dock-description, .scene-picker-hint, .dock-access-help { font-size: 12px; }
+.dock-link { font-size: 12px; }
+.health-label { font-size: 11.5px; }
+.health-item strong { font-size: 12.5px; line-height: 1.35; overflow-wrap: anywhere; }
+.dock-btn { font-size: 14px; min-height: 48px; }
+.dock-input { font-size: 14px; }
+.dock-access-label { font-size: 13px; }
+.dock-section-title { color: #715938; }
+.event-feed-item { font-size: 13px; line-height: 1.55; }
+@media (max-width: 1060px) {
+  body:not(.obs-mode) .app-workspace { scroll-behavior: smooth; scroll-padding-top: 12px; }
+}
+@media (max-width: 490px) {
+  .dock-shortcuts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .dock-shortcuts a { justify-content: flex-start; padding: 9px 13px; font-size: 13px; min-height: 44px; }
+  .dock-section[id] { scroll-margin-top: 14px; }
+  .dock-btn { font-size: 14px; min-height: 48px; }
+  .dock-input { font-size: 16px; }
+  .dock-description { font-size: 12px; }
+  .dock-link { max-width: 110px; font-size: 11.5px; }
+  .health-item { padding: 10px 6px; }
+  .health-item strong { font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .quick-dock, body:not(.obs-mode) .app-workspace { scroll-behavior: auto; }
+  .dock-shortcuts a { transition: none; }
+}

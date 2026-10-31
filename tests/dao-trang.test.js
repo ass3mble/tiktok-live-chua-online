@@ -25,6 +25,17 @@ test('Người bình luận được an tọa, thay trang phục và không bị
   assert.deepEqual(events.filter(e => e.type === 'skin').length, 1);
 });
 
+test('Ảnh đại diện cập nhật phải giữ cùng quy tắc an toàn như ảnh ban đầu', () => {
+  const room = new DaoTrang();
+  room.join('u', 'Ngọc', { avatar: 'https://example.com/avatar.png' });
+  room.join('u', 'Ngọc', { avatar: 'javascript:alert(1)' });
+  assert.equal(room.viewers.get('u').avatar, 'https://example.com/avatar.png');
+  room.join('u', 'Ngọc', { avatar: 'http://127.0.0.1/private' });
+  assert.equal(room.viewers.get('u').avatar, 'https://example.com/avatar.png');
+  room.join('u', 'Ngọc', { avatar: 'https://example.com/new.png' });
+  assert.equal(room.viewers.get('u').avatar, 'https://example.com/new.png');
+});
+
 test('Đạo tràng tự mở rộng 24, 36, 64, 100 bồ đoàn, giới hạn tối đa 100', () => {
   const room = new DaoTrang();
   assert.equal(room.capacity(), 24);

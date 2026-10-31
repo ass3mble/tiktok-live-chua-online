@@ -25,5 +25,7 @@ tmp/
 temp/
 coverage/
 test-results/
+# Ảnh kiểm thử tạo tự động chỉ dùng để đối chiếu trên máy.
+docs/demo/thiet-ke-*.png
 .DS_Store
 Thumbs.db

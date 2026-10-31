@@ -95,7 +95,14 @@ def main():
                     desktop.goto(base, wait_until='domcontentloaded')
                     desktop.locator('#serverHealth[data-state="ok"]').wait_for(timeout=12000)
                     no_horizontal_overflow(desktop, 'bảng chính máy tính')
+                    assert desktop.locator('link[rel="icon"]').get_attribute('href') == '/assets/dieu-lien-dai.svg'
+                    assert desktop.locator('.dock-shortcuts a').count() == 4
+                    for name in ('templeAudioControls', 'dockConnect', 'dockRituals', 'dockEvents'):
+                        assert desktop.locator(f'#{name}').count() == 1
                     desktop.screenshot(path=str(IMAGES / 'thiet-ke-bang-chinh-1440.png'))
+                    desktop.locator('.dock-shortcuts a[href="#dockEvents"]').click()
+                    desktop.wait_for_function(
+                        "document.querySelector('#quickDock').scrollTop > 100", timeout=5000)
                     desktop.locator('#btnSceneDao').click()
                     desktop.frame_locator('#daoSceneFrame').locator('#count').wait_for(timeout=12000)
                     assert desktop.locator('#btnSceneDao').get_attribute('aria-pressed') == 'true'
@@ -105,19 +112,48 @@ def main():
                     mobile = page_at(390, 844)
                     mobile.goto(base, wait_until='domcontentloaded')
                     no_horizontal_overflow(mobile, 'bảng chính điện thoại')
+                    assert mobile.locator('.dock-shortcuts').evaluate(
+                        'el => getComputedStyle(el).gridTemplateColumns.split(" ").length') == 2
+                    assert mobile.locator('#inputDevoteeWish').evaluate(
+                        'el => parseFloat(getComputedStyle(el).fontSize)') >= 16
                     mobile.screenshot(path=str(IMAGES / 'thiet-ke-dien-thoai-390.png'), full_page=True)
                     assert mobile.locator('#stageWrapper').bounding_box()['width'] <= 390
+                    mobile_narrow = page_at(320, 568)
+                    mobile_narrow.goto(base, wait_until='domcontentloaded')
+                    no_horizontal_overflow(mobile_narrow, 'bảng chính điện thoại 320')
+                    assert mobile_narrow.locator('#stageWrapper').bounding_box()['width'] <= 320
+                    mobile_narrow.close()
 
                     admin = page_at(1440, 900)
                     admin.goto(base + '/admin', wait_until='domcontentloaded')
                     no_horizontal_overflow(admin, 'quản trị máy tính')
+                    assert admin.locator('.admin-quick-links a').count() == 5
                     control = admin.locator('#adminAccessCode').bounding_box()
                     assert 36 <= control['height'] <= 55, f'Ô mã truy cập quá cao: {control}'
+                    reset_check = admin.evaluate('''() => {
+                        const originalPrompt = window.prompt;
+                        const originalSend = window.sendRpc;
+                        const calls = [];
+                        window.sendRpc = (...args) => calls.push(args[0]);
+                        for (const answer of [null, 'không', ' XÓA ']) {
+                            window.prompt = () => answer;
+                            confirmResetMerit();
+                        }
+                        window.prompt = originalPrompt;
+                        window.sendRpc = originalSend;
+                        return calls;
+                    }''')
+                    assert reset_check == ['temple.resetMerit'], (
+                        f'Xác nhận đặt lại công đức không an toàn: {reset_check}')
                     admin.screenshot(path=str(IMAGES / 'thiet-ke-quan-tri-1440.png'))
                     admin_mobile = page_at(390, 844)
                     admin_mobile.goto(base + '/admin', wait_until='domcontentloaded')
                     no_horizontal_overflow(admin_mobile, 'quản trị điện thoại')
                     admin_mobile.screenshot(path=str(IMAGES / 'thiet-ke-quan-tri-390.png'), full_page=True)
+                    admin_narrow = page_at(320, 568)
+                    admin_narrow.goto(base + '/admin', wait_until='domcontentloaded')
+                    no_horizontal_overflow(admin_narrow, 'quản trị điện thoại 320')
+                    admin_narrow.close()
 
                     dao = page_at(1080, 1920)
                     dao.goto(base + '/dao-trang.html', wait_until='domcontentloaded')

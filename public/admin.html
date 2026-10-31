@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Diệu Liên Đài | Bảng điều phối</title>
-  <link rel="icon" type="image/svg+xml" href="/assets/dieu-lien-dai-bieu-tuong.svg" />
+  <link rel="icon" type="image/svg+xml" href="/assets/dieu-lien-dai.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&family=Noto+Serif:wght@700;900&display=swap" rel="stylesheet">
@@ -401,6 +401,46 @@
       .btn { padding: 10px 9px; font-size: 12px; }
     }
     @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+    /* Lối điều hướng tác vụ gọn, dùng chung tinh thần giấy ngà và ngọc trầm. */
+    .admin-quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      padding: 2px 0;
+    }
+    .admin-quick-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 15px;
+      border: 1px solid #d2c9b2;
+      border-radius: 7px;
+      background: #faf8ee;
+      color: #244c40;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background .18s ease, border-color .18s ease;
+    }
+    .admin-quick-links a:hover { background: #e4ece1; border-color: #809e88; }
+    .admin-quick-links a:focus-visible { outline: 3px solid #ba8d35; outline-offset: 2px; }
+    .card[id] { scroll-margin-top: 24px; }
+    .danger-action { color: #823b2d; border-color: #d6aa9c; background: #f5e7e1; }
+    .danger-action:hover { color: #6a241d; border-color: #bd7260; background: #f1d8d1; }
+    .card .row { flex-wrap: wrap; }
+    .card .row > input { flex: 1 1 260px; }
+    .card .row > .btn { flex: 0 1 auto; }
+    @media (max-width: 740px) {
+      .admin-quick-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .admin-quick-links a { min-width: 0; text-align: center; font-size: 13px; }
+      .card .row > .btn { flex: 1 1 auto; }
+      .card .row > input, .dao-form input, .dao-form select { font-size: 16px; }
+      .card h2 { font-size: 19px; }
+      .dao-help, .dao-form label { font-size: 14px; }
+    }
+    @media (prefers-reduced-motion: reduce) { .admin-quick-links a { transition: none; } }
   </style>
 </head>
 <body>
@@ -432,6 +472,13 @@
       <div class="health-chip" id="adminTtsHealth" data-state="pending">Giọng đọc: <strong id="adminTtsStatus">Đang kiểm tra</strong></div>
       <div class="health-chip" id="adminRoomHealth" data-state="pending">Phòng trực tiếp: <strong id="adminRoomStatus">Chưa kết nối</strong></div>
     </div>
+    <nav class="admin-quick-links" aria-label="Đi nhanh đến các nhóm điều phối">
+      <a href="#daoAdminPanel">Đạo Tràng</a>
+      <a href="#adminConnection">Phòng trực tiếp</a>
+      <a href="#adminRituals">Nghi thức</a>
+      <a href="#adminComments">Bình luận thử</a>
+      <a href="#adminLogs">Nhật ký</a>
+    </nav>
     <div id="adminError" class="error-banner" role="alert" hidden></div>
     <div class="card access-row">
       <label for="adminAccessCode">Mã truy cập máy chủ (nếu có)</label>
@@ -496,25 +543,25 @@
           <button type="button" class="btn" id="btnDaoDemoGift">Thử dâng quà</button>
         </div>
       </section>
-      <section class="card">
+      <section class="card" id="adminConnection">
         <h2>📡 1. Phòng TikTok và giọng đọc Mai Chi</h2>
         <div class="row">
-          <input type="text" id="ttUser" placeholder="Nhập @username TikTok đang phát Live..." />
+          <input type="text" id="ttUser" placeholder="Nhập tài khoản TikTok đang phát..." aria-label="Tài khoản phòng TikTok" />
           <button class="btn gold" id="btnConn">Kết Nối Live</button>
           <button class="btn" id="btnDisc">Ngắt</button>
         </div>
         <div class="row">
-          <input type="text" id="ttsDirectText" value="Nam mô A Di Đà Phật. Diệu Liên Đài xin kính chào quý thí chủ thập phương." />
+          <input type="text" id="ttsDirectText" aria-label="Nội dung đọc thử giọng Mai Chi" value="Nam mô A Di Đà Phật. Diệu Liên Đài xin kính chào quý thí chủ thập phương." />
           <button class="btn gold" id="btnSpeakMaiChi">🎙️ Đọc thử Giọng Mai Chi</button>
         </div>
         <audio id="adminAudioPreview" controls style="width: 100%; height: 38px;"></audio>
       </section>
 
-      <section class="card">
+      <section class="card" id="adminRituals">
         <h2>🙏 2. Gửi lệnh nghi thức</h2>
         <div class="row">
-          <input type="text" id="rpcUser" value="Đại Thí Chủ Minh Tâm" placeholder="Tên người xem..." />
-          <input type="text" id="rpcWish" value="Cầu gia đạo bình an, tài lộc vượng phát" placeholder="Lời cầu nguyện..." />
+          <input type="text" id="rpcUser" aria-label="Tên người dâng lễ" value="Đại Thí Chủ Minh Tâm" placeholder="Tên người xem..." />
+          <input type="text" id="rpcWish" aria-label="Lời cầu nguyện" value="Cầu gia đạo bình an, tài lộc vượng phát" placeholder="Lời cầu nguyện..." />
         </div>
         <div class="action-grid">
           <button class="btn gold" onclick="sendRpc('temple.burnIncense', { count: 3 })">🔥 Thắp 3 Nén Hương</button>
@@ -524,14 +571,14 @@
           <button class="btn" onclick="sendRpc('temple.drawFortune', {})">🎋 Xin Xăm / Gieo Quẻ</button>
           <button class="btn" onclick="sendRpc('temple.offerGift', { giftType: 'fruit', coins: 30, giftName: 'Mâm Ngũ Quả Cát Tường' })">🍑 Dâng Mâm Ngũ Quả</button>
           <button class="btn gold" onclick="sendRpc('temple.grandCeremony', { coins: 500, giftName: 'Đại Lễ Kim Long Chầu Phật' })">🐉 Đại Lễ Kim Long</button>
-          <button class="btn" onclick="sendRpc('temple.resetMerit', {})">♻️ Đặt Lại Bảng Công Đức</button>
+          <button class="btn danger-action" type="button" onclick="confirmResetMerit()" title="Thao tác này sẽ xóa công đức đang lưu và cần xác nhận">Đặt lại bảng công đức (cần xác nhận)</button>
         </div>
       </section>
 
-      <section class="card">
+      <section class="card" id="adminComments">
         <h2>💬 3. Mô phỏng bình luận người xem</h2>
         <div class="row">
-          <input type="text" id="simComment" value="Con xin gieo quẻ cầu tài lộc đầu tháng ạ" placeholder="Nhập nội dung bình luận TikTok..." />
+          <input type="text" id="simComment" aria-label="Nội dung bình luận thử" value="Con xin gieo quẻ cầu tài lộc đầu tháng ạ" placeholder="Nhập nội dung bình luận TikTok..." />
           <button class="btn gold" id="btnSendComment">Gửi bình luận</button>
         </div>
         <p style="font-size: 13px; color: var(--muted);">
@@ -539,7 +586,7 @@
         </p>
       </section>
 
-      <section class="card">
+      <section class="card" id="adminLogs">
         <h2>🔌 4. Nhật ký phản hồi máy chủ</h2>
         <pre id="rpcOutput">{ "status": "Sẵn sàng nhận lệnh JSON-RPC 2.0" }</pre>
       </section>
@@ -639,6 +686,14 @@
         document.getElementById('rpcOutput').textContent = `Lệnh không thực hiện được: ${message}`;
         return { error: { message } };
       }
+    }
+
+    function confirmResetMerit() {
+      const answer = window.prompt(
+        'Thao tác này sẽ xóa toàn bộ bảng công đức đang lưu và không thể hoàn tác. Nhập XÓA để xác nhận:'
+      );
+      if (answer?.trim().toLocaleUpperCase('vi') !== 'XÓA') return;
+      return sendRpc('temple.resetMerit', {});
     }
 
     const daoSettingsFields = {
