@@ -1,100 +1,179 @@
-# TikTok Live Chùa Online | Diệu Liên Đài (妙蓮臺)
+# 🪷 TikTok Live Chùa Online | Diệu Liên Đài
 
-**Mã nguồn hỗ trợ phát trực tiếp chùa ảo tương tác trên TikTok, mô phỏng trải nghiệm đi chùa trực tuyến qua bình luận, thả tim và quà tặng.**
+**Chùa ảo tương tác dành cho TikTok LIVE · Interactive virtual temple for TikTok LIVE**
 
-**TikTok Live Chùa Online** là hệ thống hỗ trợ người sáng tạo nội dung tổ chức không gian đi chùa trực tuyến tương tác. Người xem có thể bình luận cầu an, thắp hương, lễ Phật, xin xăm, thả tim và tặng quà để kích hoạt các nghi thức mô phỏng trong khung phát dọc 9:16. Hệ thống có bảng công đức, giọng đọc tiếng Việt và hai cảnh Chánh Điện, Đạo Tràng dùng chung một máy chủ để tránh nhân đôi sự kiện. Tên riêng của không gian là **Diệu Liên Đài**.
+[🇻🇳 Tiếng Việt](#tieng-viet) · [🇬🇧 English](#english)
 
-Đây là phần mềm tạo cảnh phát và nhận sự kiện tương tác, **không tự phát sóng TikTok**. Người vận hành phải chủ động mở buổi phát bằng công cụ phát trực tiếp phù hợp.
+> **Mã nguồn đầy đủ:** Kho bao gồm chương trình, hình ảnh, âm thanh nền, tập lệnh cài đặt và bộ kiểm thử. Mô hình giọng đọc được tải riêng khi cài đặt; dữ liệu cá nhân và thông tin truy cập không được đưa lên kho.
+>
+> **Complete application source:** This repository includes the application, visual and background-audio assets, installation scripts, and tests. The voice model is downloaded separately. Personal data and access credentials are not included.
 
-**Ý nghĩa tên:** *Diệu* (妙) là nhiệm màu, tốt đẹp; *Liên* (蓮) là hoa sen; *Đài* (臺) là đài, bệ tòa. Trong từ điển Phật học, *Liên đài* là tòa sen của chư Phật và Bồ Tát, còn *Diệu liên hoa* biểu trưng cho trí tuệ thanh tịnh. Tên thương hiệu này được ghép với ý nghĩa **“tòa sen nhiệm màu, biểu trưng cho trí tuệ và sự thanh tịnh”**. Đây là tên sáng tạo từ các thuật ngữ đã có, không tự nhận là tên một ngôi chùa hay danh xưng kinh điển.
+---
 
-Tham khảo: [Từ điển Phật học về Diệu liên hoa](https://phatgiao.org.vn/tu-dien-phat-hoc-online/dieu-lien-hoa-k49896.html) và [Từ điển Phật học Tuệ Quang về Liên đài](https://www.thuvienhoasen.org/a24896/li).
+<a id="tieng-viet"></a>
+## 🇻🇳 Tiếng Việt
 
-> **Nguồn gốc và quyền sử dụng:** Chủ dự án xác nhận tác giả cho phép tiếp tục sử dụng và phát triển từ nguồn tham khảo. Kho vẫn ghi nhận đầy đủ tác giả; chưa gán giấy phép cho toàn bộ thành phần kế thừa khi chưa có văn bản cấp phép rõ ràng. Xem [ghi chú nguồn gốc và quyền sử dụng](docs/NGUON-GOC-VA-BAN-QUYEN.md).
+### Giới thiệu
 
-## Hai khung cảnh
+**TikTok Live Chùa Online (Diệu Liên Đài)** là dự án hỗ trợ tạo khung cảnh chùa ảo để phát trực tiếp trên TikTok. Người xem có thể tương tác qua bình luận, thả tim và quà tặng để kích hoạt các nghi thức mô phỏng: dâng hương, lễ Phật, cầu an, xin xăm và thỉnh chuông.
 
-| Không gian | Đặc điểm |
+Chương trình chạy trên máy của người phát, nhận sự kiện từ phòng TikTok và hiển thị cảnh dọc **9:16 (1080 × 1920)**. Đây là **phần mềm hỗ trợ tạo cảnh phát**, không phải trang chùa trực tuyến đã được lưu trữ sẵn và **không tự bắt đầu phát trực tiếp**.
+
+### Chức năng chính
+
+| Chức năng | Mô tả |
 | --- | --- |
-| Chánh Điện | Tượng Phật A Di Đà, dâng hương, đảnh lễ, chuông, mõ, hoa đăng, xin xăm và bảng công đức |
-| Đạo Tràng 2,5 chiều | Nhân vật đi vào ngồi thiền, tự mở rộng 24/36/64/100 chỗ, đổi y phục bằng bình luận, hiệu ứng quà |
+| 🏯 Chánh Điện | Tượng Phật A Di Đà, dâng hương, đảnh lễ, hoa đăng, chuông, mõ, xin xăm và bảng công đức |
+| 🪷 Đạo Tràng 2,5D | Nhân vật ngồi thiền, bố trí tự mở rộng từ 24 đến 100 chỗ, thay đổi trang phục qua bình luận |
+| 💬 Tương tác TikTok | Nhận bình luận, lượt thích, theo dõi, chia sẻ và quà tặng để kích hoạt hiệu ứng |
+| 🔊 Giọng đọc tiếng Việt | Đọc tên và lời nguyện với ZeroTTS sau khi cài mô hình giọng đọc |
+| 🎛️ Bảng điều khiển | Chọn khung cảnh, quản lý âm thanh, kết nối phòng, thử nghi thức và xem trạng thái |
+| 🛡️ Bảo vệ dữ liệu | Mặc định chạy trên máy cục bộ, hỗ trợ mã truy cập, lưu bảng công đức và chống tính trùng sự kiện |
 
-### Hình ảnh
+### Cài đặt trên Windows
 
-<img src="docs/demo/dieu-lien-dai-bang-dieu-khien.png" alt="Bảng điều khiển Diệu Liên Đài" width="720" />
+**Yêu cầu:** Node.js **20 trở lên**, trình duyệt hiện đại và phần mềm phát trực tiếp có hỗ trợ nguồn trình duyệt. Nếu muốn dùng giọng đọc, cần thêm **Python 3.11** và **uv**.
 
-<img src="docs/demo/dieu-lien-dai-dao-trang.png" alt="Đạo tràng Diệu Liên Đài với các nhân vật đang ngồi thiền" width="360" />
+**Cách nhanh:**
 
-## Cài đặt
+1. Tải hoặc sao chép kho mã về máy.
+2. Chạy **CAI-DAT.bat** để cài các thư viện cần thiết.
+3. Chạy **CHAY-DIEU-LIEN-DAI.bat** để mở máy chủ.
+4. Truy cập **http://127.0.0.1:3000** để dùng bảng điều khiển.
 
-Cần **Node.js 20 trở lên**. Để sử dụng giọng đọc tiếng Việt, cần thêm Python 3.11 và công cụ `uv`.
+**Cài thủ công:**
 
-Trên Windows:
-
-1. Chạy `CAI-DAT.bat` để cài thư viện và tải mô hình giọng đọc lần đầu.
-2. Chạy `CHAY-DIEU-LIEN-DAI.bat` để mở máy chủ.
-3. Truy cập `http://127.0.0.1:3000` trong trình duyệt để điều khiển.
-4. Chỉ bấm **Kết nối TikTok** khi có phòng phát trực tiếp cần nhận sự kiện.
-
-Cài thủ công:
-
-```powershell
+~~~powershell
+git clone https://github.com/ass3mble/tiktok-live-chua-online.git
+cd tiktok-live-chua-online
 npm ci
 npm start
-```
+~~~
 
-Muốn sử dụng giọng đọc:
+**Cài thêm giọng đọc tiếng Việt (không bắt buộc):**
 
-```powershell
+~~~powershell
 uv venv --python 3.11 .venv
 uv pip install --python .venv/Scripts/python.exe zerotts pillow
 .venv/Scripts/python.exe tools/chuan-bi-mo-hinh.py
-```
+~~~
 
-Mô hình âm thanh không được tải lên kho mã nguồn. Lần cài đầu tiên phải tải dữ liệu riêng.
+Mô hình giọng đọc được tải riêng, không nằm trong kho GitHub. Nếu không cài giọng đọc, phần giao diện và các hiệu ứng hình ảnh vẫn có thể sử dụng.
 
-## Địa chỉ sử dụng
+### Thiết lập phát trực tiếp
 
-| Chức năng | Đường dẫn |
+1. Khởi động máy chủ và mở bảng điều khiển.
+2. Chọn **Chánh Điện** hoặc **Đạo Tràng**. Mở khóa âm thanh trong trình duyệt nếu cần.
+3. Khi có phòng TikTok đang phát, nhập tên tài khoản hoặc liên kết được hỗ trợ rồi bấm **Kết nối**. Không cần kết nối thật để thử các nghi thức mô phỏng.
+4. Trong phần mềm phát trực tiếp, thêm một **nguồn trình duyệt** với địa chỉ bên dưới; đặt kích thước **1080 × 1920**.
+5. Kiểm tra hình ảnh, âm thanh và sự kiện trước khi bắt đầu phát.
+
+| Mục đích | Địa chỉ |
 | --- | --- |
-| Bảng điều khiển | `http://127.0.0.1:3000` |
-| Nguồn phát Chánh Điện | `http://127.0.0.1:3000/?obs=1` |
-| Nguồn phát Đạo Tràng | `http://127.0.0.1:3000/?obs=1&scene=dao` |
-| Quản trị | `http://127.0.0.1:3000/admin` |
+| Bảng điều khiển | http://127.0.0.1:3000 |
+| Khung phát Chánh Điện | http://127.0.0.1:3000/?obs=1 |
+| Khung phát Đạo Tràng | http://127.0.0.1:3000/?obs=1&scene=dao |
+| Trang quản trị | http://127.0.0.1:3000/admin |
 
-Đặt khung trình duyệt trong phần mềm phát trực tiếp ở kích thước **1080 × 1920**.
+Các địa chỉ trên chỉ truy cập được khi máy chủ đang chạy trên máy tương ứng. Việc kết nối sự kiện TikTok phụ thuộc vào tình trạng phòng phát và thư viện kết nối bên thứ ba.
 
-## Chức năng và kiểm thử
+### Kiểm thử và xử lý sự cố
 
-- Nhận sự kiện phòng TikTok bằng thư viện cộng đồng không chính thức.
-- Hai cảnh sử dụng chung sự kiện và bộ xử lý quà liên tục, tránh tính trùng.
-- Bảng công đức riêng, có giới hạn đầu vào và lưu an toàn.
-- Giọng đọc tiếng Việt ZeroTTS chạy trên máy cá nhân, có bộ đệm âm thanh.
-- Mô phỏng người xem và quà để kiểm tra hình ảnh, không cộng vào công đức thật.
-- Mặc định chỉ mở máy chủ ở `127.0.0.1`, có thể bổ sung mã truy cập nếu cấu hình kết nối bên ngoài.
-
-Chạy các phép thử:
-
-```powershell
+~~~powershell
 npm test
-```
-
-Kiểm thử giao diện với trình duyệt không hiển thị khi đã cài Playwright dành cho Python:
-
-```powershell
 python tools/qa-ui-thiet-ke.py
-```
+~~~
 
-## Bảo vệ dữ liệu
+Lệnh kiểm tra giao diện cần cài sẵn thư viện Playwright và trình duyệt kiểm thử. Nếu **không có tiếng**, hãy mở khóa âm thanh trong bảng điều khiển và kiểm tra thiết lập đầu ra. Nếu **không nhận bình luận/quà**, hãy kiểm tra phòng đang phát, tên tài khoản và trạng thái kết nối. Nếu **khung hình lệch**, hãy đặt nguồn trình duyệt đúng tỷ lệ 9:16.
 
-Tệp điểm công đức, tệp âm thanh đã tổng hợp, mô hình giọng đọc và thông tin riêng không nằm trong kho mã nguồn. Khi chạy, chương trình tự tạo dữ liệu tại thư mục `data/`.
+### Bảo mật và nguồn gốc
 
-Không công khai cổng điều khiển trực tiếp lên mạng. Không đặt mã truy cập hoặc thông tin cá nhân trong mã nguồn. Xem [hướng dẫn bảo vệ](docs/AN-TOAN-TRIEN-KHAI.md).
+- Không công khai mã truy cập, tệp **.env**, dữ liệu người xem hoặc tệp công đức trong thư mục **data/**.
+- Máy chủ mặc định chỉ nghe tại **127.0.0.1**. Không mở trực tiếp cổng điều khiển ra Internet.
+- Đây là dự án cộng đồng, **không liên kết hoặc được TikTok chứng nhận**, cũng không phải một ngôi chùa có thật.
+- Dự án được phát triển dựa trên [zane-tv/tiktok-live-temple-rpc](https://github.com/zane-tv/tiktok-live-temple-rpc) và tham khảo [kentjuno/chanh-dien-online](https://github.com/kentjuno/chanh-dien-online). Quyền sử dụng mã nguồn, hình ảnh và âm thanh phụ thuộc vào từng tác giả và thành phần; không mặc nhiên xem toàn bộ dự án thuộc một giấy phép duy nhất.
 
-## Nguồn gốc và đóng góp
+---
 
-Đây là **dự án phát triển phái sinh**, không tuyên bố toàn bộ mã nguồn, ảnh và âm thanh được sáng tạo mới từ đầu. Nền tảng tham khảo gồm [zane-tv/tiktok-live-temple-rpc](https://github.com/zane-tv/tiktok-live-temple-rpc) và [kentjuno/chanh-dien-online](https://github.com/kentjuno/chanh-dien-online). Giấy phép MIT của dự án thứ hai được lưu nguyên tại `docs/GIAY-PHEP-KENTJUNO.txt`.
+<a id="english"></a>
+## 🇬🇧 English
 
-Xem [thuyết minh quyền sử dụng](docs/NGUON-GOC-VA-BAN-QUYEN.md) và [quy chuẩn thiết kế](docs/HE-THONG-THIET-KE.md).
+### Overview
 
-Để tạo kho riêng tư và đưa mã lên GitHub, xem [hướng dẫn xuất bản](docs/DUA-LEN-GITHUB.md).
+**TikTok Live Chùa Online (Diệu Liên Đài)** is a community project for creating an interactive **virtual Buddhist temple scene** during TikTok LIVE streams. Viewer comments, likes, follows, shares, and gifts can trigger simulated rituals such as incense offerings, prayers, bowing, fortune draws, and bell ringing.
+
+The application runs **locally on the streamer's computer** and provides a vertical **9:16 (1080 × 1920)** scene for broadcasting software. It is **not a hosted online temple** and **does not start a TikTok broadcast automatically**.
+
+### Features
+
+| Feature | Description |
+| --- | --- |
+| 🏯 Main Sanctuary | Amitabha Buddha scene, incense, bowing, lanterns, bells, wooden fish, fortune draws, and merit leaderboard |
+| 🪷 2.5D Meditation Hall | Seated characters, 24–100 adaptive seats, and outfit changes triggered by comments |
+| 💬 TikTok interactions | Events from comments, likes, follows, shares, and gifts |
+| 🔊 Vietnamese voice | Optional ZeroTTS speech for viewer names and prayers |
+| 🎛️ Control panel | Scene selection, audio controls, room connection, ritual tests, and status information |
+| 🛡️ Data protection | Localhost by default, optional access key, persistent merit tracking, and duplicate-event handling |
+
+### Installation (Windows)
+
+**Requirements:** Node.js **20+**, a modern browser, and streaming software that supports browser sources. **Python 3.11** and **uv** are optional requirements for the Vietnamese voice engine.
+
+**Quick start:**
+
+1. Download or clone this repository.
+2. Run **CAI-DAT.bat** to install dependencies.
+3. Run **CHAY-DIEU-LIEN-DAI.bat** to start the local server.
+4. Open **http://127.0.0.1:3000** in your browser.
+
+**Manual setup:**
+
+~~~powershell
+git clone https://github.com/ass3mble/tiktok-live-chua-online.git
+cd tiktok-live-chua-online
+npm ci
+npm start
+~~~
+
+**Optional Vietnamese voice setup:**
+
+~~~powershell
+uv venv --python 3.11 .venv
+uv pip install --python .venv/Scripts/python.exe zerotts pillow
+.venv/Scripts/python.exe tools/chuan-bi-mo-hinh.py
+~~~
+
+The voice model is downloaded separately and is not stored in this repository. Visual scenes can still be used without speech synthesis.
+
+### Streaming setup
+
+1. Start the local server and open the dashboard.
+2. Select **Main Sanctuary** or **Meditation Hall**, and unlock browser audio when needed.
+3. To receive real viewer events, enter an active TikTok account or supported room URL and select **Connect**. You can test simulated rituals without a live connection.
+4. Add a **browser source** to your streaming software using one of the URLs below. Set it to **1080 × 1920**.
+5. Verify visuals, audio, and incoming events before going live.
+
+| Purpose | Local URL |
+| --- | --- |
+| Dashboard | http://127.0.0.1:3000 |
+| Main Sanctuary scene | http://127.0.0.1:3000/?obs=1 |
+| Meditation Hall scene | http://127.0.0.1:3000/?obs=1&scene=dao |
+| Admin controls | http://127.0.0.1:3000/admin |
+
+These URLs only work while the local server is running. TikTok connectivity depends on the live room and a third-party connector.
+
+### Testing and troubleshooting
+
+~~~powershell
+npm test
+python tools/qa-ui-thiet-ke.py
+~~~
+
+The visual test requires Playwright and its browser dependencies. For **missing audio**, unlock sound in the dashboard and check the output settings. For **missing events**, confirm that the room is live and the connection is active. For **cropped scenes**, use a 9:16 browser source.
+
+### Security and credits
+
+- Never publish access tokens, **.env**, viewer information, or merit records from **data/**.
+- The server binds to **127.0.0.1** by default. Do not expose its control endpoints directly to the public Internet.
+- This is an independent community project, **not affiliated with or endorsed by TikTok**, and not an actual religious institution.
+- Based on [zane-tv/tiktok-live-temple-rpc](https://github.com/zane-tv/tiktok-live-temple-rpc) with reference to [kentjuno/chanh-dien-online](https://github.com/kentjuno/chanh-dien-online). Respect the original authors and applicable rights to code, images, and audio; no single license is implied for every component.
