@@ -1,14 +1,16 @@
-# Diệu Liên Đài (妙蓮臺)
+# TikTok Live Chùa Online | Diệu Liên Đài (妙蓮臺)
 
-**Không gian thiền viện tương tác dành cho phát trực tiếp, với hai khung cảnh dọc và giọng đọc tiếng Việt.**
+**Mã nguồn hỗ trợ phát trực tiếp chùa ảo tương tác trên TikTok, mô phỏng trải nghiệm đi chùa trực tuyến qua bình luận, thả tim và quà tặng.**
 
-Diệu Liên Đài là phiên bản phát triển và mang nhận diện riêng từ hai dự án tham khảo. Chương trình có bảng điều khiển, khu vực tương tác cho người xem, nghi thức dâng hương, bảng công đức, nhận bình luận và quà tặng theo sự kiện TikTok. Hai không gian sử dụng chung một máy chủ để tránh nhân đôi các sự kiện.
+**TikTok Live Chùa Online** là hệ thống hỗ trợ người sáng tạo nội dung tổ chức không gian đi chùa trực tuyến tương tác. Người xem có thể bình luận cầu an, thắp hương, lễ Phật, xin xăm, thả tim và tặng quà để kích hoạt các nghi thức mô phỏng trong khung phát dọc 9:16. Hệ thống có bảng công đức, giọng đọc tiếng Việt và hai cảnh Chánh Điện, Đạo Tràng dùng chung một máy chủ để tránh nhân đôi sự kiện. Tên riêng của không gian là **Diệu Liên Đài**.
+
+Đây là phần mềm tạo cảnh phát và nhận sự kiện tương tác, **không tự phát sóng TikTok**. Người vận hành phải chủ động mở buổi phát bằng công cụ phát trực tiếp phù hợp.
 
 **Ý nghĩa tên:** *Diệu* (妙) là nhiệm màu, tốt đẹp; *Liên* (蓮) là hoa sen; *Đài* (臺) là đài, bệ tòa. Trong từ điển Phật học, *Liên đài* là tòa sen của chư Phật và Bồ Tát, còn *Diệu liên hoa* biểu trưng cho trí tuệ thanh tịnh. Tên thương hiệu này được ghép với ý nghĩa **“tòa sen nhiệm màu, biểu trưng cho trí tuệ và sự thanh tịnh”**. Đây là tên sáng tạo từ các thuật ngữ đã có, không tự nhận là tên một ngôi chùa hay danh xưng kinh điển.
 
 Tham khảo: [Từ điển Phật học về Diệu liên hoa](https://phatgiao.org.vn/tu-dien-phat-hoc-online/dieu-lien-hoa-k49896.html) và [Từ điển Phật học Tuệ Quang về Liên đài](https://www.thuvienhoasen.org/a24896/li).
 
-> **Lưu ý bản quyền trước khi công khai:** Phần mã nguồn kế thừa từ `zane-tv/tiktok-live-temple-rpc` chưa xác định được giấy phép tái phân phối; hình ảnh và nhạc cũng cần xác minh quyền sử dụng. Bản hiện tại phù hợp để lưu trong **kho riêng tư** trước khi hoàn tất việc xin phép hoặc thay thế các thành phần chưa rõ quyền. Xem [ghi chú nguồn gốc và quyền sử dụng](docs/NGUON-GOC-VA-BAN-QUYEN.md).
+> **Nguồn gốc và quyền sử dụng:** Chủ dự án xác nhận tác giả cho phép tiếp tục sử dụng và phát triển từ nguồn tham khảo. Kho vẫn ghi nhận đầy đủ tác giả; chưa gán giấy phép cho toàn bộ thành phần kế thừa khi chưa có văn bản cấp phép rõ ràng. Xem [ghi chú nguồn gốc và quyền sử dụng](docs/NGUON-GOC-VA-BAN-QUYEN.md).
 
 ## Hai khung cảnh
 

@@ -16,7 +16,7 @@ Diệu Liên Đài có tên thương hiệu, cách trình bày và lịch sử G
 
 ## Trạng thái khuyến nghị
 
-**Có thể lưu dự án trong kho GitHub riêng tư để sao lưu và phát triển.** Trước khi chuyển thành kho công khai, cần có sự cho phép phù hợp đối với mã nguồn thứ nhất và các tài sản chưa rõ quyền, hoặc thay thế chúng bằng thành phần được phép tái phân phối.
+Chủ dự án xác nhận tác giả cho phép sử dụng và tự phát triển dự án để công bố trên GitHub. Thông tin này được ghi nhận theo xác nhận của chủ dự án, **chưa phải văn bản cấp phép đã được kiểm chứng độc lập**. Nên lưu bằng chứng về phạm vi cho phép đối với mã, hình ảnh và âm thanh để xử lý các thắc mắc quyền sử dụng nếu có.
 
 Không gắn giấy phép MIT cho **toàn bộ** dự án khi chưa rõ quyền của các phần kế thừa. Tệp giấy phép MIT từ Kent Juno chỉ áp dụng trong phạm vi phần được họ cấp phép. Điều này không thay thế tư vấn pháp lý.
 

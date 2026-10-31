@@ -1,4 +1,4 @@
-"""Kiểm tra dự án trước khi đưa mã lên một kho GitHub riêng tư."""
+"""Kiểm tra dự án trước khi đưa mã lên kho GitHub."""
 from pathlib import Path
 import json
 import subprocess
@@ -18,8 +18,9 @@ OLD_BRANDS = ('Liên Hoa Tịnh Cảnh', 'LIÊN HOA TỊNH CẢNH', 'LIEN HOA TI
 def main():
     metadata = json.loads((ROOT / 'package.json').read_text(encoding='utf-8'))
     lock = json.loads((ROOT / 'package-lock.json').read_text(encoding='utf-8'))
-    assert metadata['name'] == 'dieu-lien-dai', 'Tên gói không khớp'
+    assert metadata['name'] == 'tiktok-live-chua-online', 'Tên gói không khớp'
     assert lock['name'] == metadata['name']
+    assert lock['packages']['']['name'] == metadata['name']
     assert lock['version'] == metadata['version']
     assert (ROOT / 'public/assets/dieu-lien-dai.svg').is_file(), 'Thiếu biểu trưng'
 
