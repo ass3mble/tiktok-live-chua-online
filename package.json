@@ -1,0 +1,21 @@
+{
+  "name": "dieu-lien-dai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Diệu Liên Đài: không gian thiền viện tương tác phát trực tiếp, hai cảnh 9:16 và giọng đọc tiếng Việt",
+  "main": "server.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": ["dieu-lien-dai", "tiktok-live", "thien-vien", "phat-truc-tiep", "viet-nam"],
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test tests/*.test.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "tiktok-live-connector": "^2.1.0",
+    "ws": "^8.18.0"
+  }
+}

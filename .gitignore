@@ -1,0 +1,29 @@
+# Các thư viện và môi trường chỉ tồn tại trên máy chạy.
+node_modules/
+.venv/
+models/
+__pycache__/
+*.pyc
+
+# Tránh đưa dữ liệu người xem, âm thanh đã đọc và thiết lập riêng lên kho mã.
+data/*
+!data/.gitkeep
+.env
+.env.*
+!.env.example
+*.log
+*.m4a
+*.wav
+*.mp3.tmp
+*.bak
+*.backup
+
+# Không công bố tài liệu và dữ liệu cá nhân từ máy phát.
+sao-luu/
+nguon-tham-khao/
+tmp/
+temp/
+coverage/
+test-results/
+.DS_Store
+Thumbs.db

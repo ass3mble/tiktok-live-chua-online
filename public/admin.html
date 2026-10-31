@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diệu Liên Đài | Bảng điều phối</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/dieu-lien-dai-bieu-tuong.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&family=Noto+Serif:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #061b20;
+      --card: #0e3035;
+      --border: rgba(143, 205, 172, 0.32);
+      --gold: #d7b96d;
+      --gold-light: #f8e6b3;
+      --text: #f3f5e9;
+      --muted: #b1cfc0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(ellipse at 14% 0%, #165653 0%, #081c22 50%, #041319 100%);
+      color: var(--text);
+      font-family: 'Be Vietnam Pro', sans-serif;
+      min-height: 100vh;
+      padding: 28px;
+    }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(145deg, #103a3c, #0b272f);
+      border: 1.5px solid var(--border);
+      border-radius: 18px;
+      padding: 18px 24px;
+    }
+    .top-title {
+      font-family: 'Noto Serif', serif;
+      font-size: 26px;
+      color: var(--gold-light);
+    }
+    .top-sub {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .top-links {
+      display: flex;
+      gap: 12px;
+    }
+    .btn {
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, #1b5c55 0%, #0d333b 100%);
+      color: var(--gold-light);
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn.gold {
+      background: linear-gradient(180deg, #f3db9f 0%, #bea15f 100%);
+      color: #143833;
+      border-color: #fae9be;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .card {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .card h2 {
+      font-size: 18px;
+      color: var(--gold-light);
+      border-bottom: 1px solid rgba(154, 210, 174, 0.24);
+      padding-bottom: 10px;
+    }
+    .row {
+      display: flex;
+      gap: 10px;
+    }
+    .row > input { min-width: 0; flex: 1 1 190px; }
+    input, select, textarea {
+      width: 100%;
+      background: #061b21;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 14px;
+    }
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    pre {
+      background: #061b20;
+      border: 1px solid rgba(142, 208, 179, 0.28);
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 12.5px;
+      color: #9ef0c0;
+      overflow-x: auto;
+      max-height: 280px;
+    }
+    .top-bar { gap: 20px; }
+    .top-brand { display: flex; align-items: center; gap: 16px; min-width: 0; }
+    .top-brand-logo {
+      display: grid; place-items: center; flex: 0 0 70px; height: 70px;
+      border: 1px solid rgba(239, 211, 145, .55);
+      border-radius: 21px 7px 21px 7px;
+      background: linear-gradient(145deg, #1b665b, #0b343e);
+    }
+    .top-brand-logo svg { width: 55px; height: 55px; }
+    .top-kicker {
+      font-size: 11px; font-weight: 700; color: #8acbb1;
+      letter-spacing: 2px; margin-bottom: 6px;
+    }
+    .top-title { font-size: clamp(20px, 2.1vw, 30px); }
+    .top-links { flex-shrink: 0; flex-wrap: wrap; justify-content: flex-end; }
+    .btn { min-height: 42px; transition: border-color .18s ease, background .18s ease; }
+    .btn:hover { border-color: #e3d2a0; }
+    .btn:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+      outline: 2px solid #efd89a; outline-offset: 3px;
+    }
+    .health-strip { display: flex; flex-wrap: wrap; gap: 8px; }
+    .health-chip {
+      display: inline-flex; gap: 7px; align-items: center;
+      padding: 7px 10px; border: 1px solid var(--border);
+      border-radius: 999px; color: var(--muted); font-size: 12px;
+      background: rgba(3, 28, 34, .54);
+    }
+    .health-chip::before {
+      content: ''; width: 7px; height: 7px; flex: 0 0 7px;
+      border-radius: 50%; background: #d1b879;
+    }
+    .health-chip[data-state="ok"]::before { background: #72e3b9; }
+    .health-chip[data-state="error"]::before { background: #ff9f80; }
+    .error-banner {
+      padding: 12px 16px; border: 1px solid rgba(254, 174, 134, .48);
+      border-radius: 11px; background: rgba(118, 42, 41, .27);
+      color: #ffe0d3; font-size: 13px; overflow-wrap: anywhere;
+    }
+    .error-banner[hidden] { display: none; }
+    .access-row { align-items: center; flex-wrap: wrap; }
+    .access-row label { font-size: 13px; color: var(--muted); }
+    .access-row input { flex: 1 1 250px; width: auto; min-width: 0; }
+    .access-row small { font-size: 11px; color: #b0c8b6; }
+    input { user-select: text; }
+    .card { box-shadow: 0 12px 32px rgba(0, 12, 18, .16); }
+    .dao-panel { grid-column: 1 / -1; }
+    .dao-panel-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .dao-panel-heading h2 { flex: 1 1 250px; }
+    .dao-form { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; }
+    .dao-form label { display: flex; flex-direction: column; gap: 7px; font-size: 12px; color: var(--muted); }
+    .dao-form label > input, .dao-form label > select { min-width: 0; }
+    .dao-form .dao-check { justify-content: center; flex-direction: row; align-items: center; }
+    .dao-check input { width: 17px; height: 17px; accent-color: #69cfaa; }
+    .dao-divider { height: 1px; border: none; background: var(--border); margin: 3px 0; }
+    .dao-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .dao-actions .btn { flex: 1 1 125px; }
+    .dao-panel-status { color: #b4dabe; font-size: 12px; }
+    .dao-help { color: var(--muted); font-size: 12px; line-height: 1.6; }
+    @media (max-width: 740px) { .dao-form { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+    @media (max-width: 390px) { .dao-form { grid-template-columns: minmax(0,1fr); } }
+    @media (max-width: 1050px) {
+      .top-bar { flex-direction: column; align-items: stretch; }
+      .top-links { justify-content: flex-start; }
+    }
+    @media (max-width: 740px) {
+      body { padding: 12px; }
+      .container { gap: 13px; }
+      .top-bar { padding: 16px; }
+      .top-brand-logo { height: 50px; flex-basis: 50px; }
+      .top-brand-logo svg { width: 40px; height: 40px; }
+      .grid { grid-template-columns: minmax(0, 1fr); gap: 13px; }
+      .card { padding: 14px; }
+      .row { flex-wrap: wrap; }
+      .row > .btn { flex: 1 1 140px; }
+      .action-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .top-links a { flex: 1 1 180px; text-align: center; }
+    }
+    @media (max-width: 390px) {
+      .action-grid { grid-template-columns: minmax(0, 1fr); }
+      .top-brand { align-items: flex-start; }
+      .top-links { flex-direction: column; }
+    }
+    /* Thiền viện đương đại: trang điều phối trên nền giấy ngà, nhóm thao tác có nhịp nghỉ. */
+    :root {
+      --bg: #eeeae0;
+      --card: #fbfaf5;
+      --border: #d5d0bf;
+      --gold: #cfab65;
+      --gold-light: #e8d2a0;
+      --text: #163c37;
+      --muted: #51685e;
+    }
+    body {
+      background:
+        radial-gradient(ellipse at 2% 2%, rgba(199, 190, 156, .23), transparent 34%),
+        #eeeae0;
+      color: var(--text);
+      padding: clamp(14px, 2.6vw, 40px);
+      line-height: 1.55;
+    }
+    .container { max-width: 1300px; gap: 18px; }
+    .top-bar {
+      background: #082e2d;
+      border: 1px solid #285d54;
+      border-radius: 12px;
+      padding: 27px 32px;
+      color: #fff6e2;
+      box-shadow: 0 18px 45px rgba(12, 45, 39, .13);
+    }
+    .top-brand-logo {
+      background: #143d38;
+      border: 1px solid #9f8d5f;
+      border-radius: 50%;
+      height: 62px;
+      flex-basis: 62px;
+    }
+    .top-brand-logo svg { width: 47px; height: 47px; }
+    .top-kicker { color: #d0b27c; font-size: 10px; letter-spacing: 2.2px; }
+    .top-title {
+      color: #f4e7bf;
+      font-size: clamp(24px, 2.5vw, 32px);
+      line-height: 1.25;
+    }
+    .top-sub { color: #d6e0d4; font-size: 12px; }
+    .top-links { gap: 8px; }
+    .btn {
+      border-radius: 6px;
+      min-height: 44px;
+      border-color: #bbb49f;
+      background: #eae8dd;
+      color: #123c36;
+      padding: 10px 15px;
+      font: 700 13px 'Be Vietnam Pro', sans-serif;
+      text-align: center;
+      transition: background .18s ease, border-color .18s ease, color .18s ease;
+    }
+    .top-links .btn {
+      color: #f4e7bf;
+      border-color: rgba(211, 183, 124, .48);
+      background: rgba(255, 255, 255, .055);
+    }
+    .top-links .btn.gold, .btn.gold {
+      background: #cfab65;
+      border-color: #cfab65;
+      color: #0b3532;
+    }
+    .btn:hover { border-color: #547b67; background: #d8e3d8; }
+    .top-links .btn:hover { background: #1d4e46; }
+    .btn.gold:hover { background: #e3c383; border-color: #e3c383; }
+    .health-strip { gap: 10px; padding: 0 2px; }
+    .health-chip {
+      color: #2c5145;
+      background: #f8f7ef;
+      border-color: #d1cdbb;
+      border-radius: 5px;
+      padding: 10px 14px;
+    }
+    .health-chip strong { color: #153e38; }
+    .card {
+      background: #fbfaf5;
+      border: 1px solid #d6d0bf;
+      border-radius: 10px;
+      box-shadow: 0 8px 22px rgba(45, 57, 43, .05);
+      padding: 25px;
+      gap: 16px;
+      min-width: 0;
+    }
+    .card h2 {
+      font: 700 19px/1.45 'Noto Serif', Georgia, serif;
+      color: #13453c;
+      border-bottom: 1px solid #ded7c5;
+      padding-bottom: 13px;
+    }
+    .grid { gap: 18px; }
+    .dao-panel { border-top: 3px solid #a58750; }
+    .dao-panel-heading h2 { margin: 0; }
+    .dao-panel-status {
+      color: #476c5e;
+      font-size: 12px;
+      padding: 9px 12px;
+      background: #e6ede3;
+      border-radius: 5px;
+    }
+    .dao-help { font-size: 12px; color: #4b6055; line-height: 1.75; }
+    .dao-form { gap: 17px; }
+    .dao-form label { font-size: 12px; font-weight: 700; color: #466458; }
+    .dao-form .dao-check {
+      justify-content: flex-start;
+      gap: 11px;
+      padding: 12px 14px;
+      background: #eeeee4;
+      border: 1px solid #dcd9ca;
+      border-radius: 6px;
+    }
+    .dao-check input { accent-color: #185b4f; }
+    .dao-actions { gap: 9px; }
+    .dao-divider { background: #ded9ca; }
+    input, select, textarea {
+      display: block;
+      width: 100%;
+      min-height: 44px;
+      color: #183c36;
+      background: #fffefb;
+      border: 1px solid #c8c5b7;
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    input::placeholder, textarea::placeholder { color: #6b7a70; }
+    input:focus-visible, select:focus-visible, textarea:focus-visible,
+    .btn:focus-visible {
+      outline: 3px solid #ba8d35;
+      outline-offset: 2px;
+    }
+    .access-row {
+      display: grid;
+      grid-template-columns: minmax(185px, .7fr) minmax(200px, 1fr) minmax(175px, .75fr);
+      align-items: center;
+      gap: 18px;
+      min-height: 86px;
+      padding: 16px 23px;
+    }
+    .access-row label { font-size: 12px; font-weight: 700; color: #264d42; }
+    .access-row input {
+      display: block;
+      flex: none;
+      width: 100%;
+      height: 45px;
+      min-height: 45px;
+      max-height: 45px;
+      align-self: center;
+      margin: 0;
+    }
+    .access-row small { color: #4d6257; font-size: 11px; line-height: 1.6; }
+    pre {
+      color: #cde5d4;
+      background: #10342f;
+      border-color: #54766c;
+      padding: 16px;
+      border-radius: 6px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+    .action-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .error-banner { background: #f1dfd8; color: #803b2e; border-color: #ca9786; }
+    @media (max-width: 960px) {
+      .top-bar { padding: 23px; }
+      .access-row { grid-template-columns: minmax(165px, .7fr) minmax(200px, 1fr); }
+      .access-row small { grid-column: 1 / -1; }
+      .dao-form { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 740px) {
+      body { padding: 12px; }
+      .container { gap: 13px; }
+      .top-bar { padding: 20px 17px; border-radius: 9px; }
+      .top-links .btn { flex: 1 1 130px; }
+      .top-brand-logo { flex-basis: 49px; height: 49px; }
+      .top-brand-logo svg { width: 38px; height: 38px; }
+      .grid { grid-template-columns: minmax(0, 1fr); gap: 13px; }
+      .card { padding: 18px 15px; }
+      .access-row { display: flex; flex-direction: column; align-items: stretch; gap: 8px; }
+      .access-row input { flex: 0 0 45px; width: 100%; }
+      .action-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .dao-panel-heading { align-items: flex-start; }
+    }
+    @media (max-width: 390px) {
+      .top-brand { gap: 11px; }
+      .top-title { font-size: 23px; }
+      .dao-form { grid-template-columns: minmax(0, 1fr); }
+      .top-links { flex-direction: row; }
+      .action-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .btn { padding: 10px 9px; font-size: 12px; }
+    }
+    @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="top-bar">
+      <div class="top-brand">
+        <div class="top-brand-logo" aria-hidden="true">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#eadba7" stroke-width="2" stroke-linejoin="round">
+            <path d="M32 42C22 29 23 18 32 9c9 9 10 20 0 33Z" fill="#91d7b6"/>
+            <path d="M29 44C14 40 10 30 12 20c12 2 20 11 17 24Z M35 44c15-4 19-14 17-24-12 2-20 11-17 24Z" fill="#327b70"/>
+            <path d="M25 45C13 48 6 42 4 34c9-4 17 0 21 11Z M39 45c12 3 19-3 21-11-9-4-17 0-21 11Z" fill="#1d5b5e"/>
+            <path d="M13 49c12 7 26 7 38 0 M22 55h20" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="top-kicker">TRUNG TÂM ĐIỀU PHỐI</div>
+          <div class="top-title">Diệu Liên Đài</div>
+          <div class="top-sub" id="statusBanner">Đang kiểm tra máy chủ và giọng đọc...</div>
+        </div>
+      </div>
+      <div class="top-links">
+        <a class="btn" href="/?obs=1" target="_blank" rel="noopener">Khung phát dọc 9:16</a>
+        <a class="btn" href="/?obs=1&amp;scene=dao" target="_blank" rel="noopener">Đạo Tràng 2.5D</a>
+        <a class="btn gold" href="/" target="_blank" rel="noopener">Không gian chính</a>
+      </div>
+    </header>
+    <div class="health-strip" role="status" aria-live="polite">
+      <div class="health-chip" id="adminServerHealth" data-state="pending">Máy chủ: <strong id="adminServerStatus">Đang kiểm tra</strong></div>
+      <div class="health-chip" id="adminTtsHealth" data-state="pending">Giọng đọc: <strong id="adminTtsStatus">Đang kiểm tra</strong></div>
+      <div class="health-chip" id="adminRoomHealth" data-state="pending">Phòng trực tiếp: <strong id="adminRoomStatus">Chưa kết nối</strong></div>
+    </div>
+    <div id="adminError" class="error-banner" role="alert" hidden></div>
+    <div class="card access-row">
+      <label for="adminAccessCode">Mã truy cập máy chủ (nếu có)</label>
+      <input type="password" id="adminAccessCode" placeholder="Nhập mã được cấp" autocomplete="off" spellcheck="false" />
+      <small>Chỉ lưu trong phiên làm việc của trang này.</small>
+    </div>
+
+    <div class="grid">
+      <section class="card dao-panel" id="daoAdminPanel">
+        <div class="dao-panel-heading">
+          <h2>Điều phối Đạo Tràng 2.5D</h2>
+          <span class="dao-panel-status" id="daoAdminStatus" role="status">Đang kiểm tra đạo tràng…</span>
+          <button type="button" class="btn" id="btnDaoRefresh">Lấy trạng thái mới</button>
+        </div>
+        <p class="dao-help">Không gian này dùng chung máy chủ. Các nhân vật có thể đổi trang phục bằng một từ: nam, nữ, sư, ni, tiểu, bà hoặc cao tăng.</p>
+        <div class="dao-form">
+          <label>Tên không gian<input type="text" id="daoTitle" maxlength="70" value="Diệu Liên Đài" /></label>
+          <label>Dòng giới thiệu<input type="text" id="daoSubtitle" maxlength="100" value="Nam mô A Di Đà Phật" /></label>
+          <label>Số bồ đoàn
+            <select id="daoSeatMode">
+              <option value="auto">Tự mở rộng 24 đến 100</option>
+              <option value="24">24 chỗ</option>
+              <option value="36">36 chỗ</option>
+              <option value="64">64 chỗ</option>
+              <option value="100">100 chỗ</option>
+            </select>
+          </label>
+          <label class="dao-check"><input type="checkbox" id="daoMusic" checked /> Nhạc nền</label>
+          <label class="dao-check"><input type="checkbox" id="daoMo" checked /> Tiếng mõ đều nhịp</label>
+          <label>Nhịp gõ mõ mỗi phút<input type="number" id="daoMoBpm" min="20" max="120" value="52" /></label>
+          <label class="dao-check"><input type="checkbox" id="daoAutoChant" checked /> Tụng kinh định kỳ</label>
+          <label>Khoảng cách tụng kinh (phút)<input type="number" id="daoChantEveryMin" min="1" max="60" value="3" /></label>
+          <label class="dao-check"><input type="checkbox" id="daoJoinOnEnter" /> Người vào phòng được ngồi ngay</label>
+        </div>
+        <div class="dao-actions">
+          <button type="button" class="btn gold" id="btnDaoSave">Lưu thiết lập đạo tràng</button>
+          <button type="button" class="btn" id="btnDaoChant">Tụng kinh ngay</button>
+          <button type="button" class="btn" id="btnDaoClear">Dọn nhân vật mô phỏng</button>
+        </div>
+        <hr class="dao-divider" />
+        <p class="dao-help">Bố trí thử nhân vật để kiểm tra hình ảnh. Việc thử nghiệm được đánh dấu riêng, không cộng vào công đức thực.</p>
+        <div class="dao-actions">
+          <button type="button" class="btn" data-dao-fill="15">Thử 15 người</button>
+          <button type="button" class="btn" data-dao-fill="36">Thử 36 người</button>
+          <button type="button" class="btn" data-dao-fill="64">Thử 64 người</button>
+          <button type="button" class="btn" data-dao-fill="100">Thử 100 người</button>
+        </div>
+        <div class="dao-form">
+          <label>Tên người thử<input type="text" id="daoDemoName" value="Diệu Hạnh" maxlength="32" /></label>
+          <label>Lời cầu nguyện<input type="text" id="daoDemoText" value="Nam mô A Di Đà Phật, cầu gia đình bình an" maxlength="120" /></label>
+          <label>Quà mô phỏng
+            <select id="daoDemoGift">
+              <option value="1|Cánh sen">Cánh sen • 1 xu</option>
+              <option value="5|Dâng hương">Dâng hương • 5 xu</option>
+              <option value="20|Hoa sen">Hoa sen • 20 xu</option>
+              <option value="199|Chuông vàng">Chuông vàng • 199 xu</option>
+            </select>
+          </label>
+        </div>
+        <div class="dao-actions">
+          <button type="button" class="btn" id="btnDaoDemoChat">Thử bình luận</button>
+          <button type="button" class="btn" id="btnDaoDemoGift">Thử dâng quà</button>
+        </div>
+      </section>
+      <section class="card">
+        <h2>📡 1. Phòng TikTok và giọng đọc Mai Chi</h2>
+        <div class="row">
+          <input type="text" id="ttUser" placeholder="Nhập @username TikTok đang phát Live..." />
+          <button class="btn gold" id="btnConn">Kết Nối Live</button>
+          <button class="btn" id="btnDisc">Ngắt</button>
+        </div>
+        <div class="row">
+          <input type="text" id="ttsDirectText" value="Nam mô A Di Đà Phật. Diệu Liên Đài xin kính chào quý thí chủ thập phương." />
+          <button class="btn gold" id="btnSpeakMaiChi">🎙️ Đọc thử Giọng Mai Chi</button>
+        </div>
+        <audio id="adminAudioPreview" controls style="width: 100%; height: 38px;"></audio>
+      </section>
+
+      <section class="card">
+        <h2>🙏 2. Gửi lệnh nghi thức</h2>
+        <div class="row">
+          <input type="text" id="rpcUser" value="Đại Thí Chủ Minh Tâm" placeholder="Tên người xem..." />
+          <input type="text" id="rpcWish" value="Cầu gia đạo bình an, tài lộc vượng phát" placeholder="Lời cầu nguyện..." />
+        </div>
+        <div class="action-grid">
+          <button class="btn gold" onclick="sendRpc('temple.burnIncense', { count: 3 })">🔥 Thắp 3 Nén Hương</button>
+          <button class="btn" onclick="sendRpc('temple.sendPrayer', {})">🏮 Thả Đèn Hoa Đăng</button>
+          <button class="btn" onclick="sendRpc('temple.strikeWoodenFish', { count: 9 })">🪵 Gõ Mõ 9 Nhịp</button>
+          <button class="btn" onclick="sendRpc('temple.ringBell', { count: 1, readTts: true })">🔔 Thỉnh Đại Hồng Chung</button>
+          <button class="btn" onclick="sendRpc('temple.drawFortune', {})">🎋 Xin Xăm / Gieo Quẻ</button>
+          <button class="btn" onclick="sendRpc('temple.offerGift', { giftType: 'fruit', coins: 30, giftName: 'Mâm Ngũ Quả Cát Tường' })">🍑 Dâng Mâm Ngũ Quả</button>
+          <button class="btn gold" onclick="sendRpc('temple.grandCeremony', { coins: 500, giftName: 'Đại Lễ Kim Long Chầu Phật' })">🐉 Đại Lễ Kim Long</button>
+          <button class="btn" onclick="sendRpc('temple.resetMerit', {})">♻️ Đặt Lại Bảng Công Đức</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>💬 3. Mô phỏng bình luận người xem</h2>
+        <div class="row">
+          <input type="text" id="simComment" value="Con xin gieo quẻ cầu tài lộc đầu tháng ạ" placeholder="Nhập nội dung bình luận TikTok..." />
+          <button class="btn gold" id="btnSendComment">Gửi bình luận</button>
+        </div>
+        <p style="font-size: 13px; color: var(--muted);">
+          Từ khóa tự động nhận diện: <code>thắp hương</code>, <code>bái phật</code>, <code>cầu ...</code>, <code>xin xăm / gieo quẻ</code>, <code>thỉnh chuông</code>, <code>gõ mõ</code>.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>🔌 4. Nhật ký phản hồi máy chủ</h2>
+        <pre id="rpcOutput">{ "status": "Sẵn sàng nhận lệnh JSON-RPC 2.0" }</pre>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const accessInput = document.getElementById('adminAccessCode');
+    const accessStoreKey = 'temple_access_key';
+    try {
+      accessInput.value = new URLSearchParams(location.search).get('key')
+        || sessionStorage.getItem(accessStoreKey)
+        || sessionStorage.getItem('dieu-lien-dai-ma-truy-cap') || '';
+    } catch (_) {
+      accessInput.value = new URLSearchParams(location.search).get('key') || '';
+    }
+
+    accessInput.addEventListener('change', () => {
+      try {
+        if (accessInput.value.trim()) {
+          sessionStorage.setItem(accessStoreKey, accessInput.value.trim());
+          sessionStorage.setItem('dieu-lien-dai-ma-truy-cap', accessInput.value.trim());
+        } else {
+          sessionStorage.removeItem(accessStoreKey);
+          sessionStorage.removeItem('dieu-lien-dai-ma-truy-cap');
+        }
+      } catch (_) {}
+      refreshStatus();
+      refreshDaoState();
+    });
+    try {
+      if (accessInput.value) sessionStorage.setItem(accessStoreKey, accessInput.value);
+      if (new URLSearchParams(location.search).has('key')) {
+        const cleanUrl = new URL(location.href);
+        cleanUrl.searchParams.delete('key');
+        history.replaceState(null, '', cleanUrl.pathname + cleanUrl.search + cleanUrl.hash);
+      }
+    } catch (_) {}
+
+    function requestHeaders(includeJson = false) {
+      const headers = includeJson ? { 'Content-Type': 'application/json' } : {};
+      const key = accessInput.value.trim();
+      if (key) headers['x-temple-key'] = key;
+      return headers;
+    }
+
+    function setAdminHealth(type, value, state) {
+      const status = document.getElementById('admin' + type + 'Status');
+      const parent = document.getElementById('admin' + type + 'Health');
+      status.textContent = value;
+      parent.dataset.state = state;
+    }
+
+    let adminCommandError = '';
+    let adminStateError = '';
+    function reportAdminError(message, source = 'state') {
+      if (source === 'command') adminCommandError = message;
+      else adminStateError = message;
+      const banner = document.getElementById('adminError');
+      const visibleMessage = adminCommandError || adminStateError;
+      banner.hidden = !visibleMessage;
+      banner.textContent = visibleMessage;
+    }
+
+    function requestError(response) {
+      if (response.status === 401 || response.status === 403) {
+        return 'Mã truy cập không đúng hoặc chưa được cấp quyền.';
+      }
+      return `Máy chủ phản hồi lỗi ${response.status}.`;
+    }
+
+    async function sendRpc(method, extraParams = {}) {
+      const user = document.getElementById('rpcUser').value.trim() || 'Thí Chủ';
+      const wish = document.getElementById('rpcWish').value.trim();
+      const body = {
+        jsonrpc: '2.0',
+        id: Date.now(),
+        method,
+        params: { user, wish, ...extraParams }
+      };
+      try {
+        const res = await fetch('/rpc', {
+          method: 'POST',
+          headers: requestHeaders(true),
+          body: JSON.stringify(body)
+        });
+        if (!res.ok) throw new Error(requestError(res));
+        const data = await res.json();
+        document.getElementById('rpcOutput').textContent = JSON.stringify(data, null, 2);
+        if (data?.error) throw new Error(data.error.message || 'Máy chủ từ chối yêu cầu.');
+        reportAdminError('', 'command');
+        refreshStatus();
+        return data;
+      } catch (error) {
+        const message = error.message || 'Không gửi được yêu cầu đến máy chủ.';
+        reportAdminError(message, 'command');
+        document.getElementById('rpcOutput').textContent = `Lệnh không thực hiện được: ${message}`;
+        return { error: { message } };
+      }
+    }
+
+    const daoSettingsFields = {
+      title: 'daoTitle',
+      subtitle: 'daoSubtitle',
+      seatMode: 'daoSeatMode',
+      music: 'daoMusic',
+      mo: 'daoMo',
+      moBpm: 'daoMoBpm',
+      autoChant: 'daoAutoChant',
+      chantEveryMin: 'daoChantEveryMin',
+      joinOnEnter: 'daoJoinOnEnter'
+    };
+    function readDaoSettings() {
+      const result = {};
+      for (const [name, id] of Object.entries(daoSettingsFields)) {
+        const input = document.getElementById(id);
+        result[name] = input.type === 'checkbox' ? input.checked
+          : input.type === 'number' ? Number(input.value) : input.value.trim();
+      }
+      result.moBpm = Math.max(20, Math.min(120, result.moBpm || 52));
+      result.chantEveryMin = Math.max(1, Math.min(60, result.chantEveryMin || 3));
+      return result;
+    }
+    function showDaoState(state, refreshInputs = true) {
+      if (!state) return;
+      const count = Array.isArray(state.viewers) ? state.viewers.length : 0;
+      document.getElementById('daoAdminStatus').textContent =
+        `Đang có ${count}/${state.cap || 24} vị trí`;
+      if (refreshInputs && state.settings) {
+        for (const [name, id] of Object.entries(daoSettingsFields)) {
+          if (!Object.prototype.hasOwnProperty.call(state.settings, name)) continue;
+          const input = document.getElementById(id);
+          if (input.type === 'checkbox') input.checked = !!state.settings[name];
+          else input.value = String(state.settings[name]);
+        }
+      }
+    }
+    async function refreshDaoState() {
+      const data = await sendRpc('temple.daoGetState');
+      if (data?.result) showDaoState(data.result);
+      else document.getElementById('daoAdminStatus').textContent =
+        'Chưa lấy được trạng thái đạo tràng';
+    }
+    async function sendDaoCommand(method, params = {}) {
+      const data = await sendRpc(method, params);
+      if (data?.result?.daoState) showDaoState(data.result.daoState, false);
+      else if (data?.result?.state) showDaoState(data.result.state, false);
+      else if (Array.isArray(data?.result?.viewers)) showDaoState(data.result, false);
+      return data;
+    }
+    document.getElementById('btnDaoRefresh').addEventListener('click', refreshDaoState);
+    document.getElementById('btnDaoSave').addEventListener('click', () =>
+      sendDaoCommand('temple.daoSettings', readDaoSettings()));
+    document.getElementById('btnDaoChant').addEventListener('click', () =>
+      sendDaoCommand('temple.daoChant'));
+    document.getElementById('btnDaoClear').addEventListener('click', () =>
+      sendDaoCommand('temple.daoClear'));
+    document.querySelectorAll('[data-dao-fill]').forEach(button => {
+      button.addEventListener('click', () =>
+        sendDaoCommand('temple.daoFill', { count: Number(button.dataset.daoFill) }));
+    });
+    document.getElementById('btnDaoDemoChat').addEventListener('click', () =>
+      sendDaoCommand('temple.daoDemoChat', {
+        name: document.getElementById('daoDemoName').value.trim(),
+        text: document.getElementById('daoDemoText').value.trim()
+      }));
+    document.getElementById('btnDaoDemoGift').addEventListener('click', () => {
+      const [coins, giftName] = document.getElementById('daoDemoGift').value.split('|');
+      sendDaoCommand('temple.daoDemoGift', {
+        name: document.getElementById('daoDemoName').value.trim(),
+        coins: Number(coins),
+        giftName
+      });
+    });
+
+    document.getElementById('btnConn').onclick = () => {
+      const username = document.getElementById('ttUser').value.trim();
+      sendRpc('live.connect', { username });
+    };
+    document.getElementById('btnDisc').onclick = () => sendRpc('live.disconnect', {});
+    document.getElementById('btnSendComment').onclick = () => {
+      const comment = document.getElementById('simComment').value.trim();
+      sendRpc('temple.comment', { comment });
+    };
+    document.getElementById('btnSpeakMaiChi').onclick = async () => {
+      const text = document.getElementById('ttsDirectText').value.trim();
+      const data = await sendRpc('temple.speak', { text, voice: 'maichi', broadcast: true });
+      if (data?.result?.url) {
+        const player = document.getElementById('adminAudioPreview');
+        try {
+          const audioUrl = new URL(data.result.url, location.href);
+          if (audioUrl.origin !== location.origin) throw new Error('Nguồn âm thanh không hợp lệ.');
+          const key = accessInput.value.trim();
+          if (key) audioUrl.searchParams.set('key', key);
+          player.src = audioUrl.href;
+          player.play().catch(() => {});
+        } catch (error) {
+          reportAdminError(error.message || 'Không thể phát âm thanh.', 'command');
+        }
+      }
+    };
+
+    async function refreshStatus() {
+      try {
+        const res = await fetch('/api/state', { headers: requestHeaders() });
+        if (!res.ok) throw new Error(requestError(res));
+        const st = await res.json();
+        setAdminHealth('Server', 'Đã kết nối', 'ok');
+        const ttsStates = {
+          ready: ['Sẵn sàng', 'ok'],
+          loading: ['Đang nạp giọng', 'pending'],
+          starting: ['Đang khởi động', 'pending'],
+          stopped: ['Đã dừng', 'error'],
+          error: ['Không khả dụng', 'error']
+        };
+        const voice = ttsStates[st.tts?.status]
+          || (st.tts?.ready ? ['Sẵn sàng', 'ok'] : ['Chưa sẵn sàng', 'pending']);
+        setAdminHealth('Tts', voice[0], voice[1]);
+        const connected = Boolean(st.tiktok?.connected);
+        setAdminHealth('Room',
+          connected ? `Đã kết nối @${st.tiktok.username}`
+            : st.tiktok?.connecting ? 'Đang kết nối'
+              : st.tiktok?.lastError ? 'Kết nối thất bại' : 'Chưa kết nối',
+          connected ? 'ok' : st.tiktok?.lastError ? 'error' : 'pending');
+        document.getElementById('statusBanner').textContent =
+          `Hương đã thắp: ${Number(st.totalIncense || 0).toLocaleString('vi-VN')} • Công đức: ${Number(st.totalMerit || 0).toLocaleString('vi-VN')}`;
+        reportAdminError(st.tiktok?.lastError && !connected
+          ? `Phòng TikTok: ${st.tiktok.lastError}` : '');
+      } catch (error) {
+        setAdminHealth('Server', 'Mất kết nối', 'error');
+        setAdminHealth('Tts', 'Không xác định', 'pending');
+        setAdminHealth('Room', 'Không xác định', 'pending');
+        document.getElementById('statusBanner').textContent = 'Không thể lấy trạng thái máy chủ.';
+        reportAdminError(error.message || 'Không thể lấy trạng thái.');
+      }
+    }
+    refreshStatus();
+    refreshDaoState();
+    setInterval(refreshStatus, 4000);
+  </script>
+</body>
+</html>
